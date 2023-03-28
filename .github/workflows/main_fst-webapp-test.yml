@@ -54,5 +54,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: "fst-webapp-test"
-          publish-profile: ${{ secrets. }}
+          publish-profile: ${{ secrets.PUBLISH_PROFILE }}
           images: "fsttest.azurecr.io/fsttest/hello-world:fst"
