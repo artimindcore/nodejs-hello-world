@@ -13,7 +13,6 @@ jobs:
 
   audodeploy-main-on-dev:
     runs-on: ubuntu-latest
-    needs: yarn-build
     environment:
       name: "dev"
 
