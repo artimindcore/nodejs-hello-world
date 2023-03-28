@@ -10,18 +10,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  yarn-build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: npm
-      - name: Build
-        run: |
-          npm install
-          yarn build --filter=@eligo/admin-client
 
   audodeploy-main-on-dev:
     runs-on: ubuntu-latest
@@ -47,7 +35,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: fsttest.azurecr.io/eligonext/hello-world:fst
+          tags: fsttest.azurecr.io/fsttest/hello-world:fst
           file: ./Dockerfile
     
       - name: Deploy to Azure Dev resource group
@@ -55,5 +43,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: "fst-webapp-test"
-          publish-profile: ${{ secrets. }}
+          publish-profile: ${{ secrets.PUBLISH_PROFILE }}
           images: "fsttest.azurecr.io/eligonext/hello-world:fst"
