@@ -6,7 +6,7 @@ on:
       - "main"
 
 concurrency:
-  group: "main_${{ github.head_ref }}-backoffice-cd"
+  group: "main"
   cancel-in-progress: true
 
 jobs:
@@ -39,7 +39,7 @@ jobs:
       - name: Log in to registry
         uses: docker/login-action@v2
         with:
-          registry: https://eligonext.azurecr.io/
+          registry: https://fsttest.azurecr.io/
           username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
           password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
 
@@ -47,7 +47,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: fsttest.azurecr.io/eligonext/hello-world:fst
+          tags: fsttest.azurecr.io/fsttest/hello-world:fst
           file: ./Dockerfile
     
       - name: Deploy to Azure Dev resource group
@@ -56,4 +56,4 @@ jobs:
         with:
           app-name: "fst-webapp-test"
           publish-profile: ${{ secrets. }}
-          images: "fsttest.azurecr.io/eligonext/hello-world:fst"
+          images: "fsttest.azurecr.io/fsttest/hello-world:fst"
